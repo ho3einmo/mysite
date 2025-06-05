@@ -1,8 +1,12 @@
 from django.shortcuts import render, get_object_or_404
 from . import models
+from django.core.paginator import Paginator
 # Create your views here.
 def list(request):
     posts = models.Post.objects.filter(status='published').order_by('-created_at')
+    paginator = Paginator(posts, 3)  # Show 3 posts per page
+    page_number = request.GET.get('page')
+    posts = paginator.get_page(page_number)
     return render(request, 'blog/list.html', {'posts': posts})
 
 
