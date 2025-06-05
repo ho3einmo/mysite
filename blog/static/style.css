@@ -1,0 +1,80 @@
+/* style.css - Basic Blog Template Styles */
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f9f9f9;
+    color: #222;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background: #2d3e50;
+    color: #fff;
+    padding: 1.5rem 0;
+    text-align: center;
+}
+
+nav {
+    margin: 1rem 0;
+    text-align: center;
+}
+
+nav a {
+    color: #2d3e50;
+    text-decoration: none;
+    margin: 0 1rem;
+    font-weight: 500;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+.container {
+    max-width: 800px;
+    margin: 2rem auto;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+h1, h2, h3 {
+    color: #2d3e50;
+    margin-top: 0;
+}
+
+.post {
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1.5rem;
+}
+
+.post:last-child {
+    border-bottom: none;
+}
+
+.post-title {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.post-meta {
+    color: #888;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+}
+
+.post-content {
+    line-height: 1.7;
+}
+
+footer {
+    text-align: center;
+    color: #888;
+    padding: 1.5rem 0;
+    background: #f1f1f1;
+    margin-top: 2rem;
+    font-size: 0.95rem;
+}

@@ -1,15 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ post.title }}</title>
-</head>
-<body>
+{% extends 'blog/base.html' %}
+{% block title %}
+{{ post.title }}
+{% endblock %}
+
+{% block content %}
     <h1>{{ post.title }}</h1>
     <p>By {{ post.author }} | {{ post.published_date }}</p>
     <div>
         {{ post.body|linebreaks }}
     </div>
     <a href="{% url 'blog:list' %}">Back to posts</a>
-</body>
-</html>
+{% endblock %}
