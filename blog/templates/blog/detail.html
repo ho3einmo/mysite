@@ -18,7 +18,14 @@
             </li>
         {% empty %}
             <li>No comments yet.</li>
+            <li>{{ message }}</li>
         {% endfor %}
+        <form method="post">
+            {% csrf_token %}
+            
+            {{ comment_form.as_p }}
+            <button type="submit" class="btn btn-primary">Add Comment</button>
+        </form>
     </ul>
     <a href="{% url 'blog:list' %}">Back to posts</a>
 {% endblock %}
