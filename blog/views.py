@@ -13,3 +13,4 @@ def list(request):
 def detail(request, slug, year, month, day):
     post = get_object_or_404(models.Post, created_at__year=year, created_at__month=month, created_at__day=day, slug=slug, status='published')
     return render(request, 'blog/detail.html', {'post': post})
+# def create_comment(request, slug, year, month, day):

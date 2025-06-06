@@ -9,5 +9,16 @@
     <div>
         {{ post.body|linebreaks }}
     </div>
+    <h2>Comments</h2>
+    <ul>
+        {% for comment in post.active_comments %}
+            <li>
+                <strong>{{ comment.author }}</strong> ({{ comment.created_at }}):<br>
+                {{ comment.comment|linebreaks }}
+            </li>
+        {% empty %}
+            <li>No comments yet.</li>
+        {% endfor %}
+    </ul>
     <a href="{% url 'blog:list' %}">Back to posts</a>
 {% endblock %}
