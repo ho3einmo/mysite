@@ -18,8 +18,8 @@
             </li>
         {% empty %}
             <li>No comments yet.</li>
-            <li>{{ message }}</li>
         {% endfor %}
+            <li>{{ message }}</li>
         <form method="post">
             {% csrf_token %}
             

@@ -3,8 +3,11 @@ from . import models
 from django.core.paginator import Paginator
 from . import forms
 # Create your views here.
-def list(request):
-    posts = models.Post.objects.filter(status='published').order_by('-created_at')
+def list(request,tags_slug=None):
+    if tags_slug:
+        posts = models.Post.objects.filter(status='published', tags__slug=tags_slug).order_by('-created_at')
+    else:
+        posts = models.Post.objects.filter(status='published').order_by('-created_at')
     paginator = Paginator(posts, 3)  # Show 3 posts per page
     page_number = request.GET.get('page')
     posts = paginator.get_page(page_number)
