@@ -1,7 +1,8 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from . import models
 from django.core.paginator import Paginator
 from . import forms
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 def list(request,tags_slug=None):
     if tags_slug:
@@ -28,3 +29,13 @@ def detail(request, slug, year, month, day):
     else:
         comment_form = forms.CommentForm()
     return render(request, 'blog/detail.html', {'post': post, 'comment_form': forms.CommentForm(), 'message': 'insert your comment below.'})
+@login_required
+def like_post(request, post_id):
+    post = get_object_or_404(models.Post, id=post_id)
+    like, created = models.Like.objects.get_or_create(post=post, user=request.user)
+    if not created:
+        like.delete()
+        message = 'You unliked this post.'
+    else:
+        message = 'You liked this post.'
+    return redirect('blog:detail', slug=post.slug, year=post.created_at.year, month=post.created_at.month, day=post.created_at.day)

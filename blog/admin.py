@@ -24,5 +24,12 @@ class CommentAdmin(admin.ModelAdmin):
     list_filter = ('is_active', 'created_at')
     actions = [mark_comments_as_active]
 
+
+class LikeAdmin(admin.ModelAdmin):
+    list_display = ('post', 'user', 'created_at')
+    search_fields = ('post__title', 'user__username')
+    list_filter = ('created_at',)
+
 admin.site.register(models.Comment, CommentAdmin)
 admin.site.register(models.Post, PostAdmin)
+admin.site.register(models.Like)  # Register the Like model without a custom admin interface

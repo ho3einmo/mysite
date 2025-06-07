@@ -11,6 +11,7 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=10, choices=(('draft', 'Draft'), ('published', 'Published')), default='draft')
     tags = TaggableManager(blank=True)
+
     def __str__(self):
         return "{}-{}-{}".format(self.title, self.author.username, self.created_at.strftime('%Y-%m-%d %H:%M:%S'))
     def get_absolute_url(self):
@@ -32,3 +33,14 @@ class Comment(models.Model):
     
     def __str__(self):
         return "{}-{}-{}".format(self.post.title, self.author, self.created_at.strftime('%Y-%m-%d %H:%M:%S'))
+    
+class Like(models.Model):
+    post = models.ForeignKey(Post, related_name='likes', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='likes', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('post', 'user')  
+
+    def __str__(self):
+        return f"{self.user.username} liked {self.post.title}"
