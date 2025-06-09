@@ -40,6 +40,10 @@ nav a:hover {
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
+.container li {
+    text-align: left;
+}
+
 h1, h2, h3 {
     color: #2d3e50;
     margin-top: 0;

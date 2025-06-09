@@ -3,7 +3,36 @@ from . import models
 from django.core.paginator import Paginator
 from . import forms
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login, authenticate
 # Create your views here.
+def sign_up(request):
+    if request.method == 'POST':
+        form = forms.SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            return redirect('blog:list')  # Redirect to the blog list after signup
+    else:
+        form = forms.SignUpForm()
+    return render(request, 'blog/sign_up.html', {'form': form})
+
+def login_view(request):
+    if request.method == 'POST':
+        form = forms.LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request,username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('blog:list')
+    else:
+        form = forms.LoginForm()
+    return render(request, 'blog/login.html', {'form': form})
+
 def list(request,tags_slug=None):
     if tags_slug:
         posts = models.Post.objects.filter(status='published', tags__slug=tags_slug).order_by('-created_at')
