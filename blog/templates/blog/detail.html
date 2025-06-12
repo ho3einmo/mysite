@@ -10,12 +10,14 @@
     <div>
         {{ post.body|linebreaks }}
     </div>
+    {% if user.is_authenticated %}
     <form method="post" action="{% url 'blog:like_post' post.id %}">
         {% csrf_token %}
         <button type="submit" class="btn btn-success">
             Like ({{ post.likes.count }})
         </button>
     </form>
+    {% endif %}
     <h2>Comments({% total_comments post%})</h2>
     <ul>
         {% for comment in post.active_comments %}
@@ -27,6 +29,8 @@
         {% empty %}
             <li>No comments yet.</li>
         {% endfor %}
+            
+        {% if user.is_authenticated %}
             <li>{{ message }}</li>
         <form method="post">
             {% csrf_token %}
@@ -34,6 +38,7 @@
             {{ comment_form.as_p }}
             <button type="submit" class="btn btn-primary">Add Comment</button>
         </form>
+        {% endif %}
     </ul>
     <a href="{% url 'blog:list' %}">Back to posts</a>
 {% endblock %}

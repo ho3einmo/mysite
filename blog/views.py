@@ -3,7 +3,7 @@ from . import models
 from django.core.paginator import Paginator
 from . import forms
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 # Create your views here.
 def sign_up(request):
     if request.method == 'POST':
@@ -32,6 +32,10 @@ def login_view(request):
     else:
         form = forms.LoginForm()
     return render(request, 'blog/login.html', {'form': form})
+
+def logout_view(request):
+    logout(request)
+    return redirect('blog:list')
 
 def list(request,tags_slug=None):
     if tags_slug:
